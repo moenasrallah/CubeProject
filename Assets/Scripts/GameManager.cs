@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour {
-    GameObject clone;
+
     // Use this for initialization
     void Start () {
 		
@@ -13,6 +13,6 @@ public class GameManager : MonoBehaviour {
 	void Update ()
     {
  
-            clone = Instantiate(gameObject, transform.position, transform.rotation);
+            
     }
 }

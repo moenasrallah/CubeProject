@@ -1,13 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
+using UnityEngine.Networking;
 
-public class EnemyScript : MonoBehaviour
+public class EnemyScript : NetworkBehaviour
 {
 
     public float health = 100;
     public TextMesh healthText;
-
+    public GameObject moreBlood;
+    private bool isDying = false;
     private void Start()
     {
         UpdateHealthText();
@@ -16,13 +19,22 @@ public class EnemyScript : MonoBehaviour
 
     public void TakeDamage(float dmg)
     {
-        health -= dmg;
+        if (health != 0)
+        {
+            health -= dmg;
+            UpdateHealthText();
+        }
 
-        UpdateHealthText();
         if (health == 0)
         {
-            //tell roper i died
-            Destroy(gameObject);
+            if (!isDying)
+            {
+                isDying = true;
+                FreakOut();
+                Roper.instance.iDied();
+             
+                Destroy(gameObject, 1);
+            }
         }
     }
 
@@ -30,4 +42,13 @@ public class EnemyScript : MonoBehaviour
     {
         healthText.text = health.ToString();
     }
+
+    public void FreakOut()
+    {
+        gameObject.transform.DOScale(2,2);
+        gameObject.transform.DOFlip();
+        gameObject.transform.DOJump(new Vector3(-1.2f, 2.2f, -14.6f), 3, 5, 2);
+        Debug.Log("freakout");
+    }
+    
 }

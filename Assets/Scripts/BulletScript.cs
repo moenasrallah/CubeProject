@@ -2,11 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.Networking;
 
-public class BulletScript : MonoBehaviour {
+public class BulletScript : NetworkBehaviour
+{
 
     public float speed;
     public float healthDamage = 25;
+    public GameObject bloodParticles;
+    GameObject holder;
+
+    Roper Roper;
 
     // Use this for initialization
     void Start ()
@@ -33,7 +39,9 @@ public class BulletScript : MonoBehaviour {
         {
             //EnemyScript.Health = EnemyScript.Health - healthDamage;
             col.GetComponent<EnemyScript>().TakeDamage(healthDamage);
+            BulletExplode(bloodParticles);
             Destroy(gameObject);
+      
         }
 
         if (col.gameObject.tag == "Destroy Bullet")
@@ -44,5 +52,10 @@ public class BulletScript : MonoBehaviour {
             return;
     }
 
+    void BulletExplode(GameObject effect)
+    {
+        holder = Instantiate(effect, transform.position, transform.rotation);
+        Destroy(holder, 1);
+    }
 }
 
