@@ -42,8 +42,11 @@ public class Roper : NetworkBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-        Spawn();
-       
+        if(isServer)
+        {
+            Spawn();
+        }
+
     }
 
     public void Spawn()
@@ -55,6 +58,7 @@ public class Roper : NetworkBehaviour
             {
                 clone = Instantiate(enemies, new Vector3(Random.Range(-5.7f, 4), 2, Random.Range(-2, 1)), enemies.transform.rotation);
                 currEnemies++;
+                NetworkServer.Spawn(clone);
                 Debug.Log("For loop called, current enemy count = " + currEnemies);
             }
         }

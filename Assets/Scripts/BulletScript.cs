@@ -14,7 +14,6 @@ public class BulletScript : NetworkBehaviour
 
     Roper Roper;
 
-    // Use this for initialization
     void Start ()
     {
         Destroy(gameObject, 5);
@@ -33,8 +32,7 @@ public class BulletScript : NetworkBehaviour
         //Debug.Log("Name: " + other.gameObject.name + " Tag: " + other.gameObject.tag);
 
         //Hit Enemy
-
-
+        
         if (col.gameObject.tag == "Enemy")
         {
             //EnemyScript.Health = EnemyScript.Health - healthDamage;
