@@ -36,7 +36,6 @@ public class Roper : NetworkBehaviour
     void Start ()
     {
         nextSpawn = Time.time + Random.Range(spawnRates.x, spawnRates.y);
-    
     }
 	
 	// Update is called once per frame
@@ -53,21 +52,30 @@ public class Roper : NetworkBehaviour
     {
         if (nextSpawn <= Time.time)
         {
+
             nextSpawn = Time.time + Random.Range(spawnRates.x, spawnRates.y);
-            if (currEnemies < maxEnemies)
+
+            if (currEnemies < 0)
             {
-                Debug.Log("WE'RE SPAWNING");
+                currEnemies = 0;
+                return;
+            }
+
+            if (currEnemies >= 0 && currEnemies < maxEnemies)
+            {
+                //Debug.Log("WE'RE SPAWNING");
                 clone = Instantiate(enemies, new Vector3(Random.Range(-5.7f, 4), 2, Random.Range(-2, 1)), enemies.transform.rotation);
                 currEnemies++;
                 NetworkServer.Spawn(clone);
-                //Debug.Log("For loop called, current enemy count = " + currEnemies);
+                Debug.Log("For loop called, current enemy count = " + currEnemies);
             }
+            
+            
         }
     } //dont touch
 
     public void iDied()
     {
-        if(currEnemies != 0)
-            currEnemies -= 1;
+      currEnemies -= 1;
     }
 }

@@ -34,11 +34,13 @@ public class NEnemyScript : NetworkBehaviour
 
         if (health <= 0)
         {
-            // called on the server, will be invoked on the clients
-            isDying = true;
-            UpdateHealthText(health);
-            FreakOut();
-            Roper.instance.iDied();
+            if (isDying == false)// called on the server, will be invoked on the clients
+            {
+                isDying = true;
+                UpdateHealthText(health);
+                FreakOut();
+                Roper.instance.iDied();
+            }
         }
         
     }
