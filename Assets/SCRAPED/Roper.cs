@@ -42,10 +42,10 @@ public class Roper : NetworkBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-        if(isServer)
+        if(isServer) // to have things spawn on the same screen
         {
             Spawn();
-        }
+        }// dont touch
 
     }
 
@@ -56,13 +56,14 @@ public class Roper : NetworkBehaviour
             nextSpawn = Time.time + Random.Range(spawnRates.x, spawnRates.y);
             if (currEnemies < maxEnemies)
             {
+                Debug.Log("WE'RE SPAWNING");
                 clone = Instantiate(enemies, new Vector3(Random.Range(-5.7f, 4), 2, Random.Range(-2, 1)), enemies.transform.rotation);
                 currEnemies++;
                 NetworkServer.Spawn(clone);
-                Debug.Log("For loop called, current enemy count = " + currEnemies);
+                //Debug.Log("For loop called, current enemy count = " + currEnemies);
             }
         }
-    }
+    } //dont touch
 
     public void iDied()
     {

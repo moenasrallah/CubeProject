@@ -4,7 +4,7 @@ using UnityEngine;
 using DG.Tweening;
 using UnityEngine.Networking;
 
-public class PlayerController : NetworkBehaviour
+public class NPlayerController: NetworkBehaviour
 {
     public GameObject bulletPrefab;
     Vector3 startScale;
@@ -27,7 +27,10 @@ public class PlayerController : NetworkBehaviour
             return;
         }
         MovePlayer();
-        FireBullet();
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            CmdFireBullet();
+        }
 
     }
 
@@ -45,27 +48,20 @@ public class PlayerController : NetworkBehaviour
         controller.Move(moveDirection * speed * Time.deltaTime);
     }
 
-    void FireBullet()
+    [Command]
+    void CmdFireBullet()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-
-            var bullet = (GameObject)Instantiate(
-                 bulletPrefab,
-                 transform.position - transform.forward,
-                 Quaternion.identity);
-
-            bullet.GetComponent<Rigidbody>().velocity = -transform.forward * 4;
-
-            // spawn the bullet on the clients
+            GameObject bullet = (GameObject)Instantiate(
+                        bulletPrefab,
+                        transform.position,
+                        Quaternion.identity);
+       
             NetworkServer.Spawn(bullet);
-
-            // when the bullet is destroyed on the server it will automaticaly be destroyed on clients
-            Destroy(bullet, 2.0f);
 
             playerEffect.transform.DOShakeScale(0.5f);
             playerEffect.transform.DOScale(startScale, 0.2f).SetDelay(0.5f);
-        }
+        
+        
     }
 
 }

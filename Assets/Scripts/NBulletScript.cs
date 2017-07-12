@@ -4,11 +4,11 @@ using UnityEngine;
 using DG.Tweening;
 using UnityEngine.Networking;
 
-public class BulletScript : NetworkBehaviour
+public class NBulletScript : NetworkBehaviour
 {
 
     public float speed;
-    public float healthDamage = 25;
+    public int healthDamage = 25;
     public GameObject bloodParticles;
     GameObject holder;
 
@@ -22,24 +22,18 @@ public class BulletScript : NetworkBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-        transform.Translate(transform.forward * speed * Time.deltaTime);
-        
+        transform.Translate(transform.forward * speed * Time.deltaTime);   
     }
 
-
+    [ClientCallback]
     private void OnTriggerEnter(Collider col)
     {
-        //Debug.Log("Name: " + other.gameObject.name + " Tag: " + other.gameObject.tag);
-
-        //Hit Enemy
-        
         if (col.gameObject.tag == "Enemy")
         {
             //EnemyScript.Health = EnemyScript.Health - healthDamage;
-            col.GetComponent<EnemyScript>().TakeDamage(healthDamage);
+            col.GetComponent<NEnemyScript>().TakeDamage(healthDamage); 
             BulletExplode(bloodParticles);
             Destroy(gameObject);
-      
         }
 
         if (col.gameObject.tag == "Destroy Bullet")
@@ -48,7 +42,8 @@ public class BulletScript : NetworkBehaviour
         //if ignore bullet, return
         if (col.gameObject.tag == "Ignore Bullet")
             return;
-    }
+        
+    } 
 
     void BulletExplode(GameObject effect)
     {

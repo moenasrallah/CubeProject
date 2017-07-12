@@ -30,7 +30,7 @@ public class RayCastBullet : MonoBehaviour {
                 if (hit.collider.tag == "Enemy")
                 {
                     //EnemyScript.Health = EnemyScript.Health - healthDamage;
-                    hit.collider.GetComponent<EnemyScript>().TakeDamage(damage);
+                   // hit.collider.GetComponent<EnemyScript>().TakeDamage(damage);
                     Debug.Log("Distance " + hit.distance);
                     Debug.Log("Point " + hit.point);
                 Debug.DrawLine(transform.position, hit.point);
