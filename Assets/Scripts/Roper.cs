@@ -14,7 +14,6 @@ public class Roper : NetworkBehaviour
     public static Roper instance;
     public int currEnemies = 0;
     public int maxEnemies = 5;
-    public UIManager UIMan;
 
 
     private void Awake()
@@ -67,7 +66,7 @@ public class Roper : NetworkBehaviour
                 clone = Instantiate(enemies, new Vector3(Random.Range(-5.7f, 4), 2, Random.Range(-2, 1)), enemies.transform.rotation);
                 currEnemies++;
                 NetworkServer.Spawn(clone);
-                Debug.Log("For loop called, current enemy count = " + currEnemies);
+                //Debug.Log("For loop called, current enemy count = " + currEnemies);
             }
             
             
