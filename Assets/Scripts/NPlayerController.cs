@@ -13,11 +13,23 @@ public class NPlayerController: NetworkBehaviour
     Vector3 moveDirection;
     public GameObject playerEffect;
 
+    [Header("Switchable Activity Objects")]
+    public GameObject playerCamera;
+ 
+
     private void Start()
     {
         startScale = gameObject.transform.localScale;
         controller = GetComponent<CharacterController>();
         transform.position = new Vector3(0,2.11f, -6.95f);
+        playerCamera.transform.position = new Vector3(0, 15f, -10f);
+
+        if (isLocalPlayer)  //player specific turn on/off options
+        {
+            playerCamera.SetActive(true);
+        }
+
+
     }
 
     void Update()
