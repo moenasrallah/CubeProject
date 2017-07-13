@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: c26a0d87b5b79704cae2074bb5b8a53d
+timeCreated: 1499978025
+licenseType: Pro
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Protos
+  fontNames:
+  - Protos
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
